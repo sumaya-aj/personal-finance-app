@@ -1,0 +1,49 @@
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Add New Pot</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-text mb-3">
+                Create a pot to set savings targets. These can help keep you on track as you save for special purchases.
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Pot Name</label>
+                <input type="text" class="form-control">
+                <div class="form-text float-end">30 characters left</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Target</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="btn-group d-grid mb-4" dropdown>
+                <label class="form-label">Theme</label>
+                <button class="form-select text-start" type="button" dropdownToggle>
+                    Select
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                    role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor="let theme of themes$ | async">
+                        <a class="dropdown-item">
+                            <span class="circle me-7rem" [ngStyle]="{'background-color': theme.hex_code}"></span>
+                            {{theme.color_name}}
+                            <span class="form-text" style="margin-left: auto;">Already used</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+              
+            <div class="d-grid">
+                <button type="button" class="btn btn-primary">Add Pot</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+

@@ -4,7 +4,7 @@
 </div>
 
 <div class="row">
-    <div class="col-6">
-        <app-pot-item></app-pot-item>
+    <div class="col-6" *ngFor="let potItem of pots$ | async">
+        <app-pot-item [pot]="potItem"></app-pot-item>
     </div>
 </div>

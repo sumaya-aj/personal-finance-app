@@ -1,0 +1,39 @@
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="d-flex gap-2 align-items-center mb-2">
+            <div class="circle" [ngStyle]="{'background-color': pot.theme.hex_code}"></div>
+            <h5 class="card-title flex-grow-1 mb-0">{{pot.name}}</h5>
+            <div class="btn-group" dropdown>
+                <button class="btn btn-link p-0 border-0" type="button" dropdownToggle>
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                    role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item">Edit Pot</a></li>
+                    <li role="menuitem"><a class="dropdown-item text-danger">Delete Pot</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center mt-4">
+            <div class="flex-grow-1">Total Saved</div>
+            <div class="fs-2">{{pot.total | currency}}</div>
+        </div>
+
+        <div class="progress mt-3" role="progressbar">
+            <div class="progress-bar text-dark" 
+                [ngStyle]="{'background-color': pot.theme.hex_code, 'width': (pot.total / pot.target) | percent: '1.0-2'}">
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <div>{{ pot.total / pot.target | percent: '1.0-2' }}</div>
+            <div class="text-end">Target of {{ pot.target | currency }}</div>
+        </div>
+        
+
+        <div class="d-flex gap-2 mt-4">
+            <button class="btn btn-light w-50" type="button">+ Add Money</button>
+            <button class="btn btn-light w-50" type="button">Withdraw</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+.circle {
+    width: 15px; 
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dropdown-as-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-menu {
+    width: 100%;
+ 
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    margin-top: 0.5rem;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-item-content {
+    display: flex;  
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.me-7rem {
+    margin-right: .7rem;
+}

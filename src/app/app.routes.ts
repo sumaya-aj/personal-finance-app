@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
-import { PotsOverviewComponent } from './pots/pots-overview/pots-overview.component';
+import { PotsOverviewComponent } from './pots/components/pots-overview/pots-overview.component';
 import { BudgetsOverviewComponent } from './budgets/budgets-overview/budgets-overview.component';
 import { TransactionsListComponent } from './transactions/transactions-list/transactions-list.component';
 import { RecurringBillsOverviewComponent } from './recurring-bills/recurring-bills-overview/recurring-bills-overview.component';
