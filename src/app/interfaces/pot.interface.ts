@@ -1,7 +1,7 @@
 import { Theme } from "./theme.interface";
 
 export interface Pot {
-    id:       number;
+    id?:       number;
     name:     string;
     user_id:  number;
     target:   number;

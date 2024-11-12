@@ -24,7 +24,7 @@ export class PotsOverviewComponent implements OnInit {
   ) { }
   
   ngOnInit(): void {
-    this.pots$ = this.potService.getPots(1);
+    this.pots$ = this.potService.loadPots(1);
   }
 
   openAddPot(): void {
