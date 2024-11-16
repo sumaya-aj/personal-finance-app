@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Pot } from '../../interfaces/pot.interface';
 
 @Injectable({
@@ -11,7 +11,6 @@ export class PotService {
   private apiUrl = 'http://localhost:3000/pots';
 
   private potsSubject = new BehaviorSubject<Pot[]>([]);
-  pots$: Observable<Pot[]> = this.potsSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 

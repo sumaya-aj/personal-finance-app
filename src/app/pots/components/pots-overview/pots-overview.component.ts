@@ -20,8 +20,7 @@ export class PotsOverviewComponent implements OnInit {
   pots$!: Observable<Pot[]>;
 
   constructor(private bsModalService: BsModalService,
-    private potService: PotService
-  ) { }
+    private potService: PotService) { }
   
   ngOnInit(): void {
     this.pots$ = this.potService.loadPots(1);
