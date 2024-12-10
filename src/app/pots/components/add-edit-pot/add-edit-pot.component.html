@@ -5,16 +5,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <form #addPotForm="ngForm" (ngSubmit)="onSubmit(addPotForm)">
+        <form [formGroup]="potForm" (ngSubmit)="onSubmit()">
             <div class="form-text mb-3">
-                Create a pot to set savings targets. These can help keep you on track as you save for special purchases.
+                <span *ngIf="isEditMode">If your saving targets change, feel free to update your pots.</span>
+                <span *ngIf="!isEditMode">Create a pot to set savings targets. These can help keep you on track as save for special purchases.</span>
             </div>
             <div class="mb-3">
                 <label class="form-label">Pot Name</label>
-                <input type="text" class="form-control" name="potName" 
-                [(ngModel)]="potName" maxlength="30" #potNameInput="ngModel" required>
-                <div class="form-text float-end">{{ 30 - (potNameInput.value?.length || 0) }} characters left</div>
-                <div *ngIf="potNameInput.invalid && potNameInput.touched" class="text-danger">
+                <input type="text" class="form-control" formControlName="potName" maxlength="30">
+                <div class="form-text float-end">{{ 30 - (potForm.get('potName')?.value?.length || 0) }} characters left</div>
+                <div *ngIf="potForm.get('potName')?.invalid && potForm.get('potName')?.touched" class="text-danger">
                     Pot Name is required.
                 </div>
             </div>
@@ -22,42 +22,34 @@
                 <label class="form-label">Target</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" name="target" [(ngModel)]="target" 
-                        #targetInput="ngModel" min="0" required>
+                    <input type="text" class="form-control" formControlName="target">
                 </div>
-                <div *ngIf="targetInput.invalid && targetInput.touched" class="text-danger">
-                    <div *ngIf="targetInput.errors?.['required']">Target is required.</div>
-                    <div *ngIf="targetInput.errors?.['min']">Target cannot be less than zero.</div>
+                <div *ngIf="potForm.get('target')?.invalid && potForm.get('target')?.touched" class="text-danger">
+                    Target is required and must be a number that is greater than zero.
                 </div>
             </div>
-
             <div class="btn-group d-grid mb-4" dropdown>
                 <label class="form-label">Theme</label>
                 <button class="form-select text-start" type="button" dropdownToggle>
-                    <span *ngIf="selectedThemeId" class="circle me-7rem" [ngStyle]="{'background-color': selectedThemeHexCode}"></span> {{ selectedThemeName }}
+                    <span *ngIf="selectedThemeId" class="circle me-7rem" [ngStyle]="{'background-color': selectedThemeHexCode}"></span> 
+                    {{ selectedThemeName }}
                 </button>
-                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
-                    role="menu" aria-labelledby="button-basic">
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
                     <li role="menuitem" *ngFor="let theme of themes$ | async">
                         <a class="dropdown-item" (click)="onThemeSelect(theme)">
                             <span class="circle me-7rem" [ngStyle]="{'background-color': theme.hex_code}"></span>
-                            {{theme.color_name}}
-                            <span class="form-text" style="margin-left: auto;">Already used</span>
+                            {{ theme.color_name }}
                         </a>
                     </li>
                 </ul>
             </div>
-            <input type="hidden" name="theme" [(ngModel)]="selectedThemeId" #themeInput="ngModel" required>
-            <div *ngIf="themeInput.invalid && themeInput.touched" class="text-danger">
-                Please select a theme.
-            </div>
-              
             <div class="d-grid">
-                <button type="submit"
-                [disabled]="addPotForm.invalid"
-                class="btn btn-primary">Add Pot</button>
+                <button type="submit" [disabled]="potForm.invalid" class="btn btn-primary">
+                    {{ isEditMode ? 'Save Changes' : 'Add Pot' }}
+                </button>
             </div>
         </form>
+        
     </div>
 </div>
 

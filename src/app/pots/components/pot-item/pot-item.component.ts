@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AddEditPotComponent } from '../add-edit-pot/add-edit-pot.component';
+import { AddWithdrawMoneyComponent } from '../add-withdraw-money/add-withdraw-money.component';
 
 @Component({
   selector: 'app-pot-item',
@@ -15,11 +16,20 @@ import { AddEditPotComponent } from '../add-edit-pot/add-edit-pot.component';
 export class PotItemComponent {
   @Input() pot!: Pot;
   editPotModal?: BsModalRef;
+  addMoneyModal?: BsModalRef;
 
   constructor(private modalService: BsModalService) { }
 
-  openEditPot(userId: number, potId?: number): void {
-    this.editPotModal = this.modalService.show(AddEditPotComponent);
+  openEditPot(): void {
+    this.editPotModal = this.modalService.show(AddEditPotComponent, {
+      initialState: {
+        isEditMode: true,
+        editedPot: this.pot
+      },
+    });
+  }
 
+  openAddMoney(){
+    this.addMoneyModal = this.modalService.show(AddWithdrawMoneyComponent);
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Pot } from '../../interfaces/pot.interface';
 
 @Injectable({
@@ -30,4 +30,18 @@ export class PotService {
     );
   }
 
+  updatePot(pot: Pot): Observable<Pot> {
+    return this.http.put<Pot>(`${this.apiUrl}/${pot.id}`, pot).pipe(
+      tap((updatedPot) => {
+        const currentPots = this.potsSubject.value;
+        const index = currentPots.findIndex((p) => p.id === updatedPot.id);
+  
+        if (index > -1) {
+          currentPots[index] = updatedPot;
+          this.potsSubject.next([...currentPots]);
+        }
+      })
+    );
+  }
+  
 }

@@ -762,27 +762,37 @@
   "pots": [
     {
       "id": "1",
-      "name": "Savings",
       "user_id": 1,
-      "target": 2000,
+      "name": "Savings",
+      "target": "3000",
       "total": 159,
       "theme": {
-        "id": 5,
         "color_name": "Orange",
         "hex_code": "#FFA500"
       }
     },
     {
-      "id": "1545",
+      "id": "7158",
       "user_id": 1,
-      "name": "ff",
-      "target": "200",
+      "name": "pot test",
+      "target": "40",
       "total": 0,
       "theme": {
-        "id": "3",
-        "color_name": "Blue",
-        "hex_code": "#0000FF"
+        "id": "1",
+        "color_name": "Red",
+        "hex_code": "#FF0000"
       }
+    },
+    {
+      "user_id": 1,
+      "name": "vv",
+      "target": "80",
+      "total": 0,
+      "theme": {
+        "color_name": "Olive",
+        "hex_code": "#808000"
+      },
+      "id": "d533"
     }
   ]
 }

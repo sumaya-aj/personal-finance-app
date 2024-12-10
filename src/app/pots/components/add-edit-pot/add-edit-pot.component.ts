@@ -1,67 +1,94 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Theme } from '../../../interfaces/theme.interface';
 import { CommonService } from '../../../services/common.service';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PotService } from '../../services/pot.service';
 import { Pot } from '../../../interfaces/pot.interface';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { numberAndGreaterThanZeroValidator } from '../../../shared/formCustomValidators/number-and-greater-than-zero';
 
 @Component({
   selector: 'app-add-edit-pot',
   standalone: true,
-  imports: [CommonModule, BsDropdownModule, FormsModule],
+  imports: [CommonModule, BsDropdownModule, ReactiveFormsModule],
   templateUrl: './add-edit-pot.component.html',
   styleUrl: './add-edit-pot.component.css'
 })
 export class AddEditPotComponent implements OnInit {
-  themes$!: Observable<Theme[]>;
-  selectedThemeName: string = 'Select';
-  selectedThemeId!: number;
-  selectedThemeHexCode!: string;
-  potName: string = '';
-  target!: number;
 
-  constructor(private commonService: CommonService,
-    private potService: PotService,
-    private bsModalService: BsModalService) { }
+    potForm!: FormGroup;
+    themes$!: Observable<Theme[]>;
+    selectedThemeName: string = 'Select';
+    selectedThemeId!: number;
+    selectedThemeHexCode!: string;
 
-  ngOnInit(): void {
-    this.themes$ = this.commonService.getThemes();
-  }
-  
-  onThemeSelect(theme: Theme): void {
-    this.selectedThemeName = theme.color_name;
-    this.selectedThemeId = theme.id;
-    this.selectedThemeHexCode = theme.hex_code;
-  }
+    @Input() isEditMode: boolean = false;
+    @Input() editedPot!: Pot;
 
-  onSubmit(form: any): void {
-    if (form.valid) {
-      const newPot: Pot = {
-        user_id: 1,
-        name: form.value.potName,
-        target: form.value.target,
-        total: 0,
-        theme: {
-          id: this.selectedThemeId,
-          color_name: this.selectedThemeName,
-          hex_code: this.selectedThemeHexCode,
-        },
-      };
+    constructor(
+        private fb: FormBuilder,
+        private commonService: CommonService,
+        private potService: PotService,
+        private bsModalService: BsModalService
+    ) {}
 
-      this.potService.addPot(newPot).subscribe({
-        next: () => {
-          form.reset();
-          this.bsModalService.hide();
-        },
-        error: (err) => {
-          console.error('Error adding pot:', err);
-        },
-      });
+    ngOnInit(): void {
+        this.themes$ = this.commonService.getThemes();
+        this.potForm = this.fb.group({
+            potName: ['', Validators.required],
+            target: [null, [Validators.required, Validators.min(1), numberAndGreaterThanZeroValidator]],
+            theme: [null, Validators.required],
+        });
+
+        if (this.isEditMode && this.editedPot) {
+            this.potForm.patchValue({
+                potName: this.editedPot.name,
+                target: this.editedPot.target,
+                theme: this.editedPot.theme.id,
+            });
+            this.selectedThemeName = this.editedPot.theme.color_name;
+            this.selectedThemeHexCode = this.editedPot.theme.hex_code;
+        }
     }
-  }
-}
 
+    onThemeSelect(theme: Theme): void {
+        this.selectedThemeName = theme.color_name;
+        this.selectedThemeId = theme.id;
+        this.selectedThemeHexCode = theme.hex_code;
+        this.potForm.patchValue({ theme: theme.id });
+    }
+
+    onSubmit(): void {
+        if (this.potForm.valid) {
+            const pot: Pot = {
+                user_id: 1,
+                name: this.potForm.value.potName,
+                target: this.potForm.value.target,
+                total: this.isEditMode ? this.editedPot.total : 0,
+                theme: {
+                    id: this.selectedThemeId,
+                    color_name: this.selectedThemeName,
+                    hex_code: this.selectedThemeHexCode,
+                },
+            };
+
+            if (this.isEditMode)
+              pot.id = this.editedPot.id;
+
+            if (this.isEditMode) {
+                this.potService.updatePot(pot).subscribe(() => {
+                    this.bsModalService.hide();
+                });
+            } else {
+                this.potService.addPot(pot).subscribe(() => {
+                    this.potForm.reset();
+                    this.bsModalService.hide();
+                });
+            }
+        }
+    }
+}
