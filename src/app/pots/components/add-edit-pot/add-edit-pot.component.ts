@@ -66,6 +66,7 @@ export class AddEditPotComponent implements OnInit {
         this.selectedThemeId = theme.id;
         this.selectedThemeHexCode = theme.hex_code;
         this.potForm.patchValue({ theme: theme.id });
+        this.potForm.get('theme')?.markAsDirty();
     }
 
     onSubmit(): void {

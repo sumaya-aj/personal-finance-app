@@ -763,10 +763,10 @@
     {
       "user_id": 1,
       "name": "Savings",
-      "target": "8000",
+      "target": "7005",
       "total": 159,
       "theme": {
-        "id": 1,
+        "id": "3",
         "color_name": "Green",
         "hex_code": "#008000"
       },
@@ -774,15 +774,39 @@
     },
     {
       "user_id": 1,
-      "name": "rere wow",
-      "target": "80",
+      "name": "lklk",
+      "target": "130",
       "total": 0,
       "theme": {
-        "id": "1",
-        "color_name": "Lime",
-        "hex_code": "#00FF00"
+        "id": "8",
+        "color_name": "Red",
+        "hex_code": "#FF0000"
       },
-      "id": "684a"
+      "id": "2a8f"
+    },
+    {
+      "user_id": 1,
+      "name": "uyu",
+      "target": "667",
+      "total": 0,
+      "theme": {
+        "id": "24",
+        "color_name": "Indigo",
+        "hex_code": "#4B0082"
+      },
+      "id": "de02"
+    },
+    {
+      "id": "f856",
+      "user_id": 1,
+      "name": "dsd",
+      "target": "89",
+      "total": 0,
+      "theme": {
+        "id": "21",
+        "color_name": "Salmon",
+        "hex_code": "#FA8072"
+      }
     }
   ]
 }

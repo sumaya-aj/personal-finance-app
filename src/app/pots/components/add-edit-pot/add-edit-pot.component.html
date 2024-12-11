@@ -44,7 +44,7 @@
                 </ul>
             </div>
             <div class="d-grid"> 
-                <button type="submit" [disabled]="potForm.invalid" class="btn btn-primary">
+                <button type="submit" [disabled]="isEditMode ? (potForm.invalid || potForm.pristine) : potForm.invalid" class="btn btn-primary">
                     {{ isEditMode ? 'Save Changes' : 'Add Pot' }}
                 </button>
             </div>
