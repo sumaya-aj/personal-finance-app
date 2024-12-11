@@ -25,7 +25,7 @@
                     <input type="text" class="form-control" formControlName="target">
                 </div>
                 <div *ngIf="potForm.get('target')?.invalid && potForm.get('target')?.touched" class="text-danger">
-                    Target is required and must be a number that is greater than zero.
+                    Target is required and must be a number above zero.
                 </div>
             </div>
             <div class="btn-group d-grid mb-4" dropdown>

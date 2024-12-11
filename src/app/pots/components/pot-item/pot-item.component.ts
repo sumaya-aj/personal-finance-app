@@ -32,7 +32,11 @@ export class PotItemComponent {
   }
 
   openAddMoney(){
-    this.addMoneyModal = this.modalService.show(AddWithdrawMoneyComponent);
+    this.addMoneyModal = this.modalService.show(AddWithdrawMoneyComponent, {
+      initialState: {
+        pot: this.pot
+      }
+    });
   }
 
   openConfirmDeletePot(){

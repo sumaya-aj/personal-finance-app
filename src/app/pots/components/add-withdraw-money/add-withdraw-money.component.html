@@ -1,1 +1,49 @@
-<p>add-withdraw-money-pot works!</p>
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title"> Add to '{{pot.name}}'</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="potForm" (ngSubmit)="onSubmit()">
+            <div class="form-text mb-3">
+                <span>The progress bar shows your savings so far, and updates dynamically with the amount you enter in 'Amount to Add' field.</span>
+            </div>
+
+            <div class="d-flex align-items-center mt-4">
+                <div class="flex-grow-1">Total Saved with New Amount</div>
+                <div class="fs-2">{{ (pot.total + addedAmount) | currency}}</div>
+            </div>
+
+            <div class="progress-stacked">
+                <div class="progress" role="progressbar" [style.width]="(pot.total / pot.target) | percent: '1.0-2'" title="Amount already saved">
+                  <div class="progress-bar bg-dark"></div>
+                </div>
+                <div class="progress" role="progressbar" [style.width]="(addedAmount / pot.target) | percent: '1.0-2'" title="Amount to add">
+                  <div class="progress-bar" [style.background-color]="pot.theme.hex_code"></div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <div>{{ (pot.total + addedAmount) / pot.target | percent: '1.0-2' }}</div>
+                <div class="text-end">Target of {{pot.target | currency}}</div>
+            </div>
+            
+            <div class="my-3">
+                <label class="form-label">Amount to Add</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" formControlName="amountToAdd">
+                </div>
+                <div *ngIf="potForm.get('amountToAdd')?.invalid && potForm.get('amountToAdd')?.touched" class="text-danger">
+                    Field is required and must be a number above zero.
+                </div>
+            </div>
+          
+            <div class="d-grid"> 
+                <button type="submit" class="btn btn-primary" [disabled]="potForm.invalid">
+                    Confirm Addition
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
