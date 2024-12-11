@@ -14,14 +14,14 @@ export class PotService {
 
   constructor(private http: HttpClient) {}
 
-  loadPots(userId: number): Observable<Pot[]> {
+  getAll(userId: number): Observable<Pot[]> {
     this.http.get<Pot[]>(`${this.apiUrl}?userId=${userId}`).subscribe((data) => {
       this.potsSubject.next(data);
     });
     return this.potsSubject.asObservable();
   }
 
-  addPot(pot: Pot): Observable<Pot> {
+  add(pot: Pot): Observable<Pot> {
     return this.http.post<Pot>(this.apiUrl, pot).pipe(
       tap((newPot) => {
         const currentPots = this.potsSubject.value;
@@ -30,7 +30,7 @@ export class PotService {
     );
   }
 
-  updatePot(pot: Pot): Observable<Pot> {
+  update(pot: Pot): Observable<Pot> {
     return this.http.put<Pot>(`${this.apiUrl}/${pot.id}`, pot).pipe(
       tap((updatedPot) => {
         const currentPots = this.potsSubject.value;
@@ -40,6 +40,16 @@ export class PotService {
           currentPots[index] = updatedPot;
           this.potsSubject.next([...currentPots]);
         }
+      })
+    );
+  }
+
+  delete(potId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${potId}`).pipe(
+      tap(() => {
+        const currentPots = this.potsSubject.value;
+        const updatedPots = currentPots.filter((pot) => pot.id !== potId);
+        this.potsSubject.next(updatedPots);
       })
     );
   }

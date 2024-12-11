@@ -85,15 +85,19 @@ export class AddEditPotComponent implements OnInit {
 
             if (this.isEditMode) {
                 pot.id = this.editedPot.id;
-                this.potService.updatePot(pot).subscribe(() => {
+                this.potService.update(pot).subscribe(() => {
                     this.bsModalService.hide();
                 });
             } else {
-                this.potService.addPot(pot).subscribe(() => {
+                this.potService.add(pot).subscribe(() => {
                     this.potForm.reset();
                     this.bsModalService.hide();
                 });
             }
         }
+    }
+
+    close() {
+        this.bsModalService.hide();
     }
 }

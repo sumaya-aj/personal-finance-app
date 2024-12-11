@@ -23,17 +23,11 @@ export class PotsOverviewComponent implements OnInit {
     private potService: PotService) { }
   
   ngOnInit(): void {
-    this.pots$ = this.potService.loadPots(1);
+    this.pots$ = this.potService.getAll(1);
   }
 
   openAddPot(): void {
     this.addPotModal = this.bsModalService.show(AddEditPotComponent);
   }
-
-  closeAddPotModal(): void {
-    if (this.addPotModal) 
-      this.bsModalService.hide();
-  }
-
-
+  
 }

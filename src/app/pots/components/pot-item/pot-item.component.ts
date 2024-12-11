@@ -5,6 +5,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AddEditPotComponent } from '../add-edit-pot/add-edit-pot.component';
 import { AddWithdrawMoneyComponent } from '../add-withdraw-money/add-withdraw-money.component';
+import { DeletePotComponent } from '../delete-pot/delete-pot.component';
 
 @Component({
   selector: 'app-pot-item',
@@ -15,8 +16,9 @@ import { AddWithdrawMoneyComponent } from '../add-withdraw-money/add-withdraw-mo
 })
 export class PotItemComponent {
   @Input() pot!: Pot;
-  editPotModal?: BsModalRef;
-  addMoneyModal?: BsModalRef;
+  editPotModal!: BsModalRef;
+  addMoneyModal!: BsModalRef;
+  deletePotModal!: BsModalRef;
 
   constructor(private modalService: BsModalService) { }
 
@@ -31,5 +33,13 @@ export class PotItemComponent {
 
   openAddMoney(){
     this.addMoneyModal = this.modalService.show(AddWithdrawMoneyComponent);
+  }
+
+  openConfirmDeletePot(){
+    this.deletePotModal = this.modalService.show(DeletePotComponent, {
+      initialState: {
+        pot: this.pot
+      }
+    });
   }
 }
