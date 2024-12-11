@@ -761,38 +761,28 @@
   ],
   "pots": [
     {
-      "id": "1",
       "user_id": 1,
       "name": "Savings",
-      "target": "3000",
+      "target": "8000",
       "total": 159,
       "theme": {
-        "color_name": "Orange",
-        "hex_code": "#FFA500"
-      }
-    },
-    {
-      "id": "7158",
-      "user_id": 1,
-      "name": "pot test",
-      "target": "40",
-      "total": 0,
-      "theme": {
-        "id": "1",
-        "color_name": "Red",
-        "hex_code": "#FF0000"
-      }
+        "id": 1,
+        "color_name": "Green",
+        "hex_code": "#008000"
+      },
+      "id": "1"
     },
     {
       "user_id": 1,
-      "name": "vv",
+      "name": "rere wow",
       "target": "80",
       "total": 0,
       "theme": {
-        "color_name": "Olive",
-        "hex_code": "#808000"
+        "id": "1",
+        "color_name": "Lime",
+        "hex_code": "#00FF00"
       },
-      "id": "d533"
+      "id": "684a"
     }
   ]
 }

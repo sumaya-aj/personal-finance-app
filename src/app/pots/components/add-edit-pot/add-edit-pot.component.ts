@@ -9,7 +9,7 @@ import { PotService } from '../../services/pot.service';
 import { Pot } from '../../../interfaces/pot.interface';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { numberAndGreaterThanZeroValidator } from '../../../shared/formCustomValidators/number-and-greater-than-zero';
+import { isNumberAndGreaterThanZeroValidator } from '../../../shared/formCustomValidators/is-number-and-greater-than-zero';
 
 @Component({
   selector: 'app-add-edit-pot',
@@ -38,9 +38,10 @@ export class AddEditPotComponent implements OnInit {
 
     ngOnInit(): void {
         this.themes$ = this.commonService.getThemes();
+
         this.potForm = this.fb.group({
             potName: ['', Validators.required],
-            target: [null, [Validators.required, Validators.min(1), numberAndGreaterThanZeroValidator]],
+            target: [null, [Validators.required, Validators.min(1), isNumberAndGreaterThanZeroValidator]],
             theme: [null, Validators.required],
         });
 
@@ -48,11 +49,16 @@ export class AddEditPotComponent implements OnInit {
             this.potForm.patchValue({
                 potName: this.editedPot.name,
                 target: this.editedPot.target,
-                theme: this.editedPot.theme.id,
+                theme: this.editedPot.theme.id
             });
             this.selectedThemeName = this.editedPot.theme.color_name;
             this.selectedThemeHexCode = this.editedPot.theme.hex_code;
         }
+
+        console.log('Form Status:', this.potForm.status);
+        console.log('Form Values:', this.potForm.value);
+        console.log('Form Errors:', this.potForm.errors);
+        console.log('Target Control Errors:', this.potForm.get('target')?.errors);
     }
 
     onThemeSelect(theme: Theme): void {
@@ -70,16 +76,14 @@ export class AddEditPotComponent implements OnInit {
                 target: this.potForm.value.target,
                 total: this.isEditMode ? this.editedPot.total : 0,
                 theme: {
-                    id: this.selectedThemeId,
+                    id: this.isEditMode ? this.editedPot.theme.id : this.selectedThemeId,
                     color_name: this.selectedThemeName,
                     hex_code: this.selectedThemeHexCode,
                 },
             };
 
-            if (this.isEditMode)
-              pot.id = this.editedPot.id;
-
             if (this.isEditMode) {
+                pot.id = this.editedPot.id;
                 this.potService.updatePot(pot).subscribe(() => {
                     this.bsModalService.hide();
                 });

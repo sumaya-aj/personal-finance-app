@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-pots-overview',
   standalone: true,
-  imports: [PotItemComponent, AddEditPotComponent, CommonModule],
+  imports: [PotItemComponent, CommonModule],
   templateUrl: './pots-overview.component.html',
   styleUrl: './pots-overview.component.css'
 })

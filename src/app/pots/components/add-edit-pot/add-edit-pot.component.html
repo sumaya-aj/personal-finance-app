@@ -1,7 +1,7 @@
 
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title">Add New Pot</h5>
+        <h5 class="modal-title"> {{ isEditMode ? 'Edit Pot' : 'Add New Pot' }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
@@ -43,7 +43,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="d-grid">
+            <div class="d-grid"> 
                 <button type="submit" [disabled]="potForm.invalid" class="btn btn-primary">
                     {{ isEditMode ? 'Save Changes' : 'Add Pot' }}
                 </button>
