@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PotItemComponent } from '../pot-item/pot-item.component';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { AddEditPotComponent } from '../add-edit-pot/add-edit-pot.component';
 import { PotService } from '../../services/pot.service';
-import { Pot } from '../../../interfaces/pot.interface';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Pot } from '../../../../shared/interfaces/pot.interface';
 
 @Component({
   selector: 'app-pots-overview',
@@ -15,8 +15,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './pots-overview.component.css'
 })
 export class PotsOverviewComponent implements OnInit {
-
-  addPotModal?: BsModalRef;
   pots$!: Observable<Pot[]>;
 
   constructor(private bsModalService: BsModalService,
@@ -27,7 +25,7 @@ export class PotsOverviewComponent implements OnInit {
   }
 
   openAddPot(): void {
-    this.addPotModal = this.bsModalService.show(AddEditPotComponent);
+    this.bsModalService.show(AddEditPotComponent);
   }
   
 }

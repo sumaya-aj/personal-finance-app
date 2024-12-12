@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
-import { PotsOverviewComponent } from './pots/components/pots-overview/pots-overview.component';
-import { BudgetsOverviewComponent } from './budgets/budgets-overview/budgets-overview.component';
-import { TransactionsListComponent } from './transactions/transactions-list/transactions-list.component';
-import { RecurringBillsOverviewComponent } from './recurring-bills/recurring-bills-overview/recurring-bills-overview.component';
+import { AppComponent } from './app.component';
+import { DashboardOverviewComponent } from './features/dashboard/dashboard-overview/dashboard-overview.component';
+import { TransactionsListComponent } from './features/transactions/transactions-list/transactions-list.component';
+import { BudgetsOverviewComponent } from './features/budgets/budgets-overview/budgets-overview.component';
+import { PotsOverviewComponent } from './features/pots/components/pots-overview/pots-overview.component';
+import { RecurringBillsOverviewComponent } from './features/recurring-bills/recurring-bills-overview/recurring-bills-overview.component';
 
 export const routes: Routes = [
     { path: 'overview', component: DashboardOverviewComponent },

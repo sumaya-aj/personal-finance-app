@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { Pot } from '../../../interfaces/pot.interface';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { isNumberAndGreaterThanZeroValidator } from '../../../shared/formCustomValidators/is-number-and-greater-than-zero';
 import { PotService } from '../../services/pot.service';
+import { isNumberAndGreaterThanZeroValidator } from '../../../../shared/formCustomValidators/is-number-and-greater-than-zero';
+import { Pot } from '../../../../shared/interfaces/pot.interface';
 
 @Component({
   selector: 'app-add-withdraw-money',

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Pot } from '../../../interfaces/pot.interface';
 import { PotService } from '../../services/pot.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { Pot } from '../../../../shared/interfaces/pot.interface';
 
 @Component({
   selector: 'app-delete-pot',

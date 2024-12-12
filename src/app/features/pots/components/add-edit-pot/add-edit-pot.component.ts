@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Theme } from '../../../interfaces/theme.interface';
-import { CommonService } from '../../../services/common.service';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { PotService } from '../../services/pot.service';
-import { Pot } from '../../../interfaces/pot.interface';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { isNumberAndGreaterThanZeroValidator } from '../../../shared/formCustomValidators/is-number-and-greater-than-zero';
+import { Theme } from '../../../../shared/interfaces/theme.interface';
+import { Pot } from '../../../../shared/interfaces/pot.interface';
+import { CommonService } from '../../../../shared/services/common.service';
+import { isNumberAndGreaterThanZeroValidator } from '../../../../shared/formCustomValidators/is-number-and-greater-than-zero';
 
 @Component({
   selector: 'app-add-edit-pot',

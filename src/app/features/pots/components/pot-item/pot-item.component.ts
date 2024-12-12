@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Pot } from '../../../interfaces/pot.interface';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AddEditPotComponent } from '../add-edit-pot/add-edit-pot.component';
 import { AddWithdrawMoneyComponent } from '../add-withdraw-money/add-withdraw-money.component';
 import { DeletePotComponent } from '../delete-pot/delete-pot.component';
+import { Pot } from '../../../../shared/interfaces/pot.interface';
 
 @Component({
   selector: 'app-pot-item',

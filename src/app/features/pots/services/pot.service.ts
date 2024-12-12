@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Pot } from '../../interfaces/pot.interface';
+import { Pot } from '../../../shared/interfaces/pot.interface';
 
 @Injectable({
   providedIn: 'root'
