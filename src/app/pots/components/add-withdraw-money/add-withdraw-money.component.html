@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title"> Add to '{{pot.name}}'</h5>
+        <h5 class="modal-title"> {{ isAddMoneyMode ? "Add to '" + pot.name + "'" : "Withdraw from '" + pot.name + "'" }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
     </div>
     <div class="modal-body">
@@ -11,37 +11,37 @@
 
             <div class="d-flex align-items-center mt-4">
                 <div class="flex-grow-1">Total Saved with New Amount</div>
-                <div class="fs-2">{{ (pot.total + addedAmount) | currency}}</div>
+                <div class="fs-2">{{ isAddMoneyMode ? (pot.total + addedOrWithdrawnAmount) : (pot.total - addedOrWithdrawnAmount) | currency}}</div>
             </div>
 
             <div class="progress-stacked">
-                <div class="progress" role="progressbar" [style.width]="(pot.total / pot.target) | percent: '1.0-2'" title="Amount already saved">
+                <div class="progress" role="progressbar" [style.width]="((isAddMoneyMode ? pot.total : (pot.total - addedOrWithdrawnAmount))  / pot.target) | percent: '1.0-2'" title="Amount already saved">
                   <div class="progress-bar bg-dark"></div>
                 </div>
-                <div class="progress" role="progressbar" [style.width]="(addedAmount / pot.target) | percent: '1.0-2'" title="Amount to add">
-                  <div class="progress-bar" [style.background-color]="pot.theme.hex_code"></div>
+                <div class="progress" role="progressbar" [style.width]="(addedOrWithdrawnAmount / pot.target) | percent: '1.0-2'" title="{{ isAddMoneyMode ? 'Amount to add' : 'Amount to Withdraw'}}">
+                  <div class="progress-bar" [ngClass]="isAddMoneyMode ? 'bg-success' : 'bg-danger'"></div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-between align-items-center mt-2">
-                <div>{{ (pot.total + addedAmount) / pot.target | percent: '1.0-2' }}</div>
+                <div>{{ isAddMoneyMode? (pot.total + addedOrWithdrawnAmount) : (pot.total - addedOrWithdrawnAmount) / pot.target | percent: '1.0-2' }}</div>
                 <div class="text-end">Target of {{pot.target | currency}}</div>
             </div>
             
             <div class="my-3">
-                <label class="form-label">Amount to Add</label>
+                <label class="form-label">Amount to {{isAddMoneyMode ? 'Add' : 'Withdraw'}}</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" formControlName="amountToAdd">
+                    <input type="text" class="form-control" formControlName="amountToAddOrWithdraw">
                 </div>
-                <div *ngIf="potForm.get('amountToAdd')?.invalid && potForm.get('amountToAdd')?.touched" class="text-danger">
+                <div *ngIf="potForm.get('amountToAddOrWithdraw')?.invalid && potForm.get('amountToAddOrWithdraw')?.touched" class="text-danger">
                     Field is required and must be a number above zero.
                 </div>
             </div>
           
             <div class="d-grid"> 
                 <button type="submit" class="btn btn-primary" [disabled]="potForm.invalid">
-                    Confirm Addition
+                    Confirm {{isAddMoneyMode ? 'Addition' : 'Withdrawal'}}
                 </button>
             </div>
         </form>

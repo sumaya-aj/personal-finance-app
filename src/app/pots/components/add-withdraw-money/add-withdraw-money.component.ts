@@ -15,13 +15,14 @@ import { PotService } from '../../services/pot.service';
 })
 export class AddWithdrawMoneyComponent {
   @Input() pot!: Pot;
+  @Input() isAddMoneyMode: boolean = false;
   potForm: FormGroup;
   
   constructor(private bsModalService: BsModalService,
     private fb: FormBuilder,
     private potService: PotService) {
       this.potForm = this.fb.group({
-        amountToAdd: [null, [Validators.required, Validators.min(1), isNumberAndGreaterThanZeroValidator]],
+        amountToAddOrWithdraw: [null, [Validators.required, Validators.min(1), isNumberAndGreaterThanZeroValidator]],
       });
   }
 
@@ -29,7 +30,9 @@ export class AddWithdrawMoneyComponent {
     if (this.potForm.valid) {
       const pot: Pot = {
           ...this.pot,
-          total: this.pot.total + this.addedAmount
+          total: this.isAddMoneyMode ? 
+            (this.pot.total + this.addedOrWithdrawnAmount) : 
+            (this.pot.total - this.addedOrWithdrawnAmount)
       };
 
       this.potService.update(pot).subscribe(() => {
@@ -42,8 +45,8 @@ export class AddWithdrawMoneyComponent {
     this.bsModalService.hide();
   }
 
-  get addedAmount(): number {
-    const value = this.potForm.get('amountToAdd')?.value;
+  get addedOrWithdrawnAmount(): number {
+    const value = this.potForm.get('amountToAddOrWithdraw')?.value;
     return value ? +value : 0;
   }
 }

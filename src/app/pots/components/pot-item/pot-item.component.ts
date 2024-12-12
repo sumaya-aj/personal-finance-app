@@ -16,14 +16,11 @@ import { DeletePotComponent } from '../delete-pot/delete-pot.component';
 })
 export class PotItemComponent {
   @Input() pot!: Pot;
-  editPotModal!: BsModalRef;
-  addMoneyModal!: BsModalRef;
-  deletePotModal!: BsModalRef;
-
+ 
   constructor(private modalService: BsModalService) { }
 
   openEditPot(): void {
-    this.editPotModal = this.modalService.show(AddEditPotComponent, {
+    this.modalService.show(AddEditPotComponent, {
       initialState: {
         isEditMode: true,
         editedPot: this.pot
@@ -31,8 +28,17 @@ export class PotItemComponent {
     });
   }
 
-  openAddMoney(){
-    this.addMoneyModal = this.modalService.show(AddWithdrawMoneyComponent, {
+  openAddMoneyModal() {
+    this.modalService.show(AddWithdrawMoneyComponent, {
+      initialState: {
+        pot: this.pot,
+        isAddMoneyMode: true
+      }
+    });
+  }
+
+  openWithdrawMoneyModal() {
+    this.modalService.show(AddWithdrawMoneyComponent, {
       initialState: {
         pot: this.pot
       }
@@ -40,7 +46,7 @@ export class PotItemComponent {
   }
 
   openConfirmDeletePot(){
-    this.deletePotModal = this.modalService.show(DeletePotComponent, {
+    this.modalService.show(DeletePotComponent, {
       initialState: {
         pot: this.pot
       }
