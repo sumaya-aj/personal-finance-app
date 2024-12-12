@@ -11,7 +11,7 @@
 
             <div class="d-flex align-items-center mt-4">
                 <div class="flex-grow-1">Total Saved with New Amount</div>
-                <div class="fs-2">{{ isAddMoneyMode ? (pot.total + addedOrWithdrawnAmount) : (pot.total - addedOrWithdrawnAmount) | currency}}</div>
+                <div class="fs-2">{{ (isAddMoneyMode ? (pot.total + addedOrWithdrawnAmount) : (pot.total - addedOrWithdrawnAmount)) | currency}}</div>
             </div>
 
             <div class="progress-stacked">
@@ -24,7 +24,7 @@
             </div>
 
             <div class="d-flex justify-content-between align-items-center mt-2">
-                <div>{{ isAddMoneyMode? (pot.total + addedOrWithdrawnAmount) : (pot.total - addedOrWithdrawnAmount) / pot.target | percent: '1.0-2' }}</div>
+                <div>{{ (isAddMoneyMode? (pot.total + addedOrWithdrawnAmount) : (pot.total - addedOrWithdrawnAmount)) / pot.target | percent: '1.0-2' }}</div>
                 <div class="text-end">Target of {{pot.target | currency}}</div>
             </div>
             
