@@ -14,7 +14,7 @@ export class PotService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(userId: number): Observable<Pot[]> {
+  get(userId: number): Observable<Pot[]> {
     this.http.get<Pot[]>(`${this.apiUrl}?userId=${userId}`).subscribe((data) => {
       this.potsSubject.next(data);
     });

@@ -21,7 +21,7 @@ export class PotsOverviewComponent implements OnInit {
     private potService: PotService) { }
   
   ngOnInit(): void {
-    this.pots$ = this.potService.getAll(1);
+    this.pots$ = this.potService.get(1);
   }
 
   openAddPot(): void {

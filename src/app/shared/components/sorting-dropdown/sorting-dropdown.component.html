@@ -1,0 +1,8 @@
+<div class="d-flex align-items-center">
+  <label class="me-2 text-nowrap">Sort by</label>
+  <select class="form-select" (change)="onSortChange($event)">
+    <option *ngFor="let option of sortOptions" [value]="option.value">
+      {{ option.label }}
+    </option>
+  </select>
+</div>

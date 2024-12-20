@@ -1,0 +1,56 @@
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h1 class="h2">Transactions</h1>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="d-flex">
+            <app-search-box
+                placeholder="Search Transactions"
+                (search)="onSearch($event)">
+            </app-search-box>
+            <div class="d-flex ms-auto">
+                <app-sorting-dropdown
+                    [data]="filteredTransactions"
+                    (sortedData)="onSortedTransactions($event)">
+                </app-sorting-dropdown>
+                <div class="d-flex align-items-center ms-3">
+                    <label>Categories</label>
+                    <select class="form-select ms-2" (change)="onCategoryChange($event)">
+                        <option [value]="0">All Transactions</option>
+                        <option *ngFor="let category of categories$ | async" [value]="category.id">
+                            {{ category.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Recipient/ Sender</th>
+                    <th>Category</th>
+                    <th>Transaction Date</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of transactionsSubject | async">
+                    <td>{{ transaction.recipient_sender_name}}</td>
+                    <td>{{transaction.category.name}}</td>
+                    <td>{{transaction.creation_date | date:'dd/MM/yyyy' }}</td>
+                    <td class="fw-bold" [class]="transaction.amount > 0 ? 'text-success': ''">{{ transaction.amount > 0 ? ('+' + (transaction.amount | currency)) : (transaction.amount | currency) }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <app-pagination 
+            class="d-flex justify-content-center"
+            [totalItems]="allTransactions.length" 
+            [pageSize]="10" 
+            (pageChanged)="onPageChange($event)">
+        </app-pagination>
+    </div>
+</div>
